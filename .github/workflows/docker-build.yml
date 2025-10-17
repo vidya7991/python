@@ -1,0 +1,30 @@
+name: Deploy
+
+on:
+  push:
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-18.04
+
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::111111111111:role/deploy-xyz.tech
+          aws-region: eu-central-1
+
+      - name: Build
+        run: |
+          echo "Building application..."
+          # Add your build commands here
+          # Example:
+          # docker build -t my-app .
