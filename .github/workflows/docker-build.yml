@@ -19,8 +19,8 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          role-to-assume: arn:aws:iam::111111111111:role/deploy-xyz.tech
-          aws-region: eu-central-1
+          role-to-assume: arn:aws:iam::914964735219:role/open
+          aws-region: us-east-1
 
       - name: Build
         run: |
