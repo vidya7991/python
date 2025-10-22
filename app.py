@@ -10,6 +10,10 @@ def hello_world():
 def test():
     return "This is the /test endpoint."
 
+@app.route("/eks")
+def test():
+    return "EKS verification docker image"
+
 if __name__ == "__main__":
     import os
     # You can run on any port (default: 3000)
