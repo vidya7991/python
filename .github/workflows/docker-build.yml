@@ -46,3 +46,28 @@ jobs:
       # Step 5 (optional): Print image URI for confirmation
       - name: Print Image URI
         run: echo "✅ Image pushed:${{ steps.login-ecr.outputs.registry }}/flask-helloworld:latest"
+
+      - name: Update kubeconfig for EKS
+        run: |
+          aws eks update-kubeconfig \
+            --region us-east-1 \
+            --name poc-demo
+
+      - name: Verify cluster access
+        run: kubectl get nodes
+
+      - name: Update image in Kubernetes deployment
+        env:
+          IMAGE_URI: ${{ steps.login-ecr.outputs.registry }}/flask-helloworld:latest      
+        run: |
+          echo "Updating image in deployment..."
+          kubectl set image deployment/deployment-2048 app-2048=$IMAGE_URI
+            -n py-demo-1
+
+      - name: Verify rollout status
+        run: |
+          kubectl rollout status deployment/deployment-2048 -n py-demo-1
+
+      - name: Confirm updated pods
+        run: |
+          kubectl get pods -n $K8S_NAMESPACE -o wide
