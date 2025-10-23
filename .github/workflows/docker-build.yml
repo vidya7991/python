@@ -61,8 +61,7 @@ jobs:
           IMAGE_URI: ${{ steps.login-ecr.outputs.registry }}/flask-helloworld:latest      
         run: |
           echo "Updating image in deployment..."
-          kubectl set image deployment/python-demo app-2048=914964735219.dkr.ecr.us-east-1.amazonaws.com/flask-helloworld@sha256:8165e0a8a9a9a5c6b15e68e83ee49871ab9db257d1c07ce23789a0fe2541853a
-            -n py-demo
+          kubectl set image deployment/python-demo app-2048=914964735219.dkr.ecr.us-east-1.amazonaws.com/flask-helloworld@sha256:8165e0a8a9a9a5c6b15e68e83ee49871ab9db257d1c07ce23789a0fe2541853a -n py-demo
 
       - name: Verify rollout status
         run: |
